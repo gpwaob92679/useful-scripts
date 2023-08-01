@@ -1,14 +1,20 @@
 #!/bin/bash
-
 # Initializes a new Python repository.
 
-git clone git@github.com:gpwaob92679/python-new-project.git
-mv python-new-project "$1"
+readonly RANDOM_STRING="$(tr -dc "A-Za-z0-9" < /dev/urandom | head -c 6)"
+
+if [[ -n "$1" ]]; then
+  readonly NEW_PROJECT_DIRECTORY="$1"
+else
+  # Avoid directory name clashes.
+  readonly NEW_PROJECT_DIRECTORY="python-new-project_${RANDOM_STRING}"
+fi
+
+git clone git@github.com:gpwaob92679/python-new-project.git "${NEW_PROJECT_DIRECTORY}" || exit
 cd "$1" || exit
 
 rm -rf .git
 git init
-
 echo "# $1" > README.md
 pre-commit install
 
