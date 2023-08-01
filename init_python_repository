@@ -10,7 +10,8 @@ else
   readonly NEW_PROJECT_DIRECTORY="python-new-project_${RANDOM_STRING}"
 fi
 
-git clone git@github.com:gpwaob92679/python-new-project.git "${NEW_PROJECT_DIRECTORY}" || exit
+git clone --depth 1 git@github.com:gpwaob92679/python-new-project.git \
+  "${NEW_PROJECT_DIRECTORY}" || exit
 cd "$1" || exit
 
 rm -rf .git
